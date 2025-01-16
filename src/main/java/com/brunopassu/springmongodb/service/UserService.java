@@ -1,6 +1,7 @@
 package com.brunopassu.springmongodb.service;
 
 import com.brunopassu.springmongodb.domain.User;
+import com.brunopassu.springmongodb.dto.UserDTO;
 import com.brunopassu.springmongodb.repository.UserRepository;
 import com.brunopassu.springmongodb.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,15 @@ public class UserService {
         if (user.getClass() != User.class) {
             throw new ObjectNotFoundException("Objeto não encontrado");
         }
+        return user;
+    }
+
+    public User insert(User user) {
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO) {
+        User user = new User(userDTO.getId(),userDTO.getName(),userDTO.getEmail());
         return user;
     }
 }
