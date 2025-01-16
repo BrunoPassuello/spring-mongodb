@@ -2,6 +2,7 @@ package com.brunopassu.springmongodb.service;
 
 import com.brunopassu.springmongodb.domain.User;
 import com.brunopassu.springmongodb.repository.UserRepository;
+import com.brunopassu.springmongodb.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,13 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
 
+    }
+
+    public User findById(String id) {
+        User user = userRepository.findById(id).get();
+        if (user.getClass() != User.class) {
+            throw new ObjectNotFoundException("Objeto não encontrado");
+        }
+        return user;
     }
 }
