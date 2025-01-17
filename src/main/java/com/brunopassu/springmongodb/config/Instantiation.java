@@ -2,6 +2,7 @@ package com.brunopassu.springmongodb.config;
 
 import com.brunopassu.springmongodb.domain.Post;
 import com.brunopassu.springmongodb.domain.User;
+import com.brunopassu.springmongodb.dto.AuthorDTO;
 import com.brunopassu.springmongodb.repository.PostRepository;
 import com.brunopassu.springmongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,11 @@ public class Instantiation implements CommandLineRunner {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-        Post post1 = new Post(null, sdf.parse("16-01-2025"), "Partiu viagem", "Vou para POA!", maria);
-        Post post2 = new Post(null, sdf.parse("17-01-2025"), "Bom dia!", "Acordei agora", maria);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post post1 = new Post(null, sdf.parse("16-01-2025"), "Partiu viagem", "Vou para POA!", new AuthorDTO(maria));
+        Post post2 = new Post(null, sdf.parse("17-01-2025"), "Bom dia!", "Acordei agora", new AuthorDTO(maria));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }
