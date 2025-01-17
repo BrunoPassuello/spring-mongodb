@@ -37,4 +37,9 @@ public class UserService {
         User user = new User(userDTO.getId(),userDTO.getName(),userDTO.getEmail());
         return user;
     }
+
+    public void delete(String id) {
+        User user = userRepository.findById(id).get();
+        userRepository.delete(user);
+    }
 }
