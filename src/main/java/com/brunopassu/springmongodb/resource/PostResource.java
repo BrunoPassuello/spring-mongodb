@@ -3,6 +3,7 @@ package com.brunopassu.springmongodb.resource;
 import com.brunopassu.springmongodb.domain.Post;
 import com.brunopassu.springmongodb.domain.User;
 import com.brunopassu.springmongodb.dto.UserDTO;
+import com.brunopassu.springmongodb.resource.util.URL;
 import com.brunopassu.springmongodb.service.PostService;
 import com.brunopassu.springmongodb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class PostResource {
         return ResponseEntity.ok().body(post);
     }
 
-
+    @RequestMapping(value = "/titlesearch", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value="text", defaultValue = "") String text) {
+        text = URL.decodeParam(text);
+        List<Post> list = postService.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+    }
 }
 
